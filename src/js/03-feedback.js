@@ -4,6 +4,8 @@ const email = document.querySelector("input");
 const message = document.querySelector("textarea");
 const FEEDBACK_KEY = "feedback-form-state";
 var throttle = require('lodash.throttle');
+const _ = require('lodash');
+email.blur();
 
 
 
@@ -24,9 +26,10 @@ function input(event) {
 
 function checkLocalStorage(){
     const parsedInputObj = JSON.parse(localStorage.getItem(FEEDBACK_KEY));
-    // console.log(parsedInputObj.email);
-    if (FEEDBACK_KEY) {
+    
+    if (FEEDBACK_KEY !== null) {
         email.textContent = parsedInputObj.email;
+        
         message.textContent = parsedInputObj.message;
     } else {
         email.textContent = "";

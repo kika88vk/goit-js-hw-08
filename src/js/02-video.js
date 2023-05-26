@@ -3,18 +3,20 @@ import Player from '@vimeo/player';
 
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
+const _ = require('lodash');
 
 
-player.on('timeupdate', function(data) {
+player.on('timeupdate', _.throttle(function(data) {
     localStorage.setItem("videoplayer-current-time", JSON.stringify(data));
-});
+}, 1000));
 
-const timeVideo = localStorage.getItem("videoplayer-current-time");
-const parsedTimeVideo = JSON.parse(timeVideo);
+const timeVideo = JSON.parse(localStorage.getItem("videoplayer-current-time"));
+const seconds = timeVideo.seconds;
+console.log(seconds);
 
 
 
-player.setCurrentTime().then(function(seconds) {
+player.setCurrentTime(seconds).then(function() {
     // seconds = the actual time that the player seeked to
     
 }).catch(function(error) {
