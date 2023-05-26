@@ -1,26 +1,49 @@
 import "../03-feedback.html";
 const form = document.querySelector(".feedback-form");
+const email = document.querySelector("input");
+const message = document.querySelector("textarea");
+const FEEDBACK_KEY = "feedback-form-state";
+var throttle = require('lodash.throttle');
 
-// form.addEventListener("input", input);
+
+
+form.addEventListener("input", _.throttle(input, 500));
 form.addEventListener("submit", submit);
 
-// function input(event) {
-//     event.preventDefault();
-//     const {
-//         elements: { email, massage }
-//     } = event.currentTarget;
-//     localStorage.setItem("feedback-form-state", JSON.stringify(elements));
-// };
+checkLocalStorage();
+
+
+function input(event) {
+    event.preventDefault();
+    const {
+        elements: { email, message }
+    } = event.currentTarget;
+    localStorage.setItem(FEEDBACK_KEY, JSON.stringify({ email: email.value, message: message.value }));
+
+};
+
+function checkLocalStorage(){
+    const parsedInputObj = JSON.parse(localStorage.getItem(FEEDBACK_KEY));
+    // console.log(parsedInputObj.email);
+    if (FEEDBACK_KEY) {
+        email.textContent = parsedInputObj.email;
+        message.textContent = parsedInputObj.message;
+    } else {
+        email.textContent = "";
+        message.textContent = "";
+    
+    }
+}
 
 function submit(event) {
     event.preventDefault();
     const {
-        elements: { email, massage }
+        elements: { email, message }
     } = event.currentTarget;
-    if (email.value === "" || massage.value === "") {
+    if (email.value === "" || message.value === "") {
         return alert("Не заповнені поля!!!");
     }
-    console.log({ email: email.value, massage: massage.value });
+    console.log({ email: email.value, message: message.value });
     
     event.currentTarget.reset();
 }
