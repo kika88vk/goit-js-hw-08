@@ -6,7 +6,7 @@ const player = new Player(iframe);
 import throttle from "lodash.throttle";
 
 
-player.on('timeupdate', _.throttle(function(data) {
+player.on('timeupdate', throttle(function(data) {
     localStorage.setItem("videoplayer-current-time", JSON.stringify(data));
 }, 1000));
 

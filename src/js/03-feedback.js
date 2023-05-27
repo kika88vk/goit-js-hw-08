@@ -1,4 +1,4 @@
-import "../03-feedback.html";
+
 const form = document.querySelector(".feedback-form");
 const email = document.querySelector("input");
 const message = document.querySelector("textarea");
@@ -8,7 +8,7 @@ email.blur();
 
 
 
-form.addEventListener("input", _.throttle(input, 500));
+form.addEventListener("input", throttle(input, 500));
 form.addEventListener("submit", submit);
 
 checkLocalStorage();
