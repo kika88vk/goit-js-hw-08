@@ -3,8 +3,7 @@ const form = document.querySelector(".feedback-form");
 const email = document.querySelector("input");
 const message = document.querySelector("textarea");
 const FEEDBACK_KEY = "feedback-form-state";
-var throttle = require('lodash.throttle');
-const _ = require('lodash');
+import throttle from "lodash.throttle";
 email.blur();
 
 

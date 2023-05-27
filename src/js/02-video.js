@@ -3,7 +3,7 @@ import Player from '@vimeo/player';
 
 const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
-const _ = require('lodash');
+import throttle from "lodash.throttle";
 
 
 player.on('timeupdate', _.throttle(function(data) {
