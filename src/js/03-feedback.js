@@ -24,16 +24,14 @@ function input(event) {
 };
 
 function checkLocalStorage(){
-    const parsedInputObj = JSON.parse(localStorage.getItem(FEEDBACK_KEY));
+    const parsedInputObj = JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || {};
     
-    if (FEEDBACK_KEY !== null) {
+    if (parsedInputObj.email) {
         email.textContent = parsedInputObj.email;
         
+    } 
+    if (parsedInputObj.message) {
         message.textContent = parsedInputObj.message;
-    } else {
-        email.textContent = "";
-        message.textContent = "";
-    
     }
 }
 
