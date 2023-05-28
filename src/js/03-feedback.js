@@ -4,7 +4,7 @@ const email = document.querySelector("input");
 const message = document.querySelector("textarea");
 const FEEDBACK_KEY = "feedback-form-state";
 import throttle from "lodash.throttle";
-email.blur();
+
 
 
 
@@ -12,14 +12,13 @@ form.addEventListener("input", throttle(input, 500));
 form.addEventListener("submit", submit);
 
 checkLocalStorage();
+let formData = JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || {};
 
 
 function input(event) {
-    event.preventDefault();
-    const {
-        elements: { email, message }
-    } = event.currentTarget;
-    localStorage.setItem(FEEDBACK_KEY, JSON.stringify({ email: email.value, message: message.value }));
+    
+    formData[event.target.name] = event.target.value;
+    localStorage.setItem(FEEDBACK_KEY, JSON.stringify(formData));
 
 };
 
@@ -43,7 +42,8 @@ function submit(event) {
     if (email.value === "" || message.value === "") {
         return alert("Не заповнені поля!!!");
     }
-    console.log({ email: email.value, message: message.value });
+    console.log(formData);
     
     event.currentTarget.reset();
+    formData = {};
 }
