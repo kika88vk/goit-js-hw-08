@@ -6,12 +6,11 @@ const FEEDBACK_KEY = "feedback-form-state";
 import throttle from "lodash.throttle";
 
 
-
-
 form.addEventListener("input", throttle(input, 500));
 form.addEventListener("submit", submit);
 
-checkLocalStorage();
+
+
 let formData = JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || {};
 
 
@@ -23,16 +22,23 @@ function input(event) {
 };
 
 function checkLocalStorage(){
-    const parsedInputObj = JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || {};
+    // const parsedInputObj = JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || {};
     
-    if (parsedInputObj.email) {
-        email.textContent = parsedInputObj.email;
+    if (formData.email) {
+        email.textContent = formData.email;
         
     } 
-    if (parsedInputObj.message) {
-        message.textContent = parsedInputObj.message;
+    if (formData.message) {
+        message.textContent = formData.message;
+    } else {
+        email.textContent = formData.email;
+        message.textContent = formData.message;
     }
+    
+
 }
+
+checkLocalStorage();
 
 function submit(event) {
     event.preventDefault();
