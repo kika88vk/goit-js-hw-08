@@ -12,7 +12,7 @@ form.addEventListener("submit", submit);
 
 
 let formData = JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || {};
-
+checkLocalStorage();
 
 function input(event) {
     
@@ -22,8 +22,7 @@ function input(event) {
 };
 
 function checkLocalStorage(){
-    // const parsedInputObj = JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || {};
-    
+
     if (formData.email) {
         email.textContent = formData.email;
         
@@ -31,25 +30,22 @@ function checkLocalStorage(){
     if (formData.message) {
         message.textContent = formData.message;
     } else {
-        email.textContent = formData.email;
-        message.textContent = formData.message;
+        email.textContent = "";
+        message.textContent = "";
     }
     
-
 }
 
-checkLocalStorage();
+
 
 function submit(event) {
     event.preventDefault();
-    const {
-        elements: { email, message }
-    } = event.currentTarget;
+    
     if (email.value === "" || message.value === "") {
         return alert("Не заповнені поля!!!");
     }
     console.log(formData);
     
     event.currentTarget.reset();
-    formData = {};
+    localStorage.removeItem(FEEDBACK_KEY);
 }
